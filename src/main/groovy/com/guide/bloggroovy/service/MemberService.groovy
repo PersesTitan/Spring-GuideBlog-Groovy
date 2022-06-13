@@ -1,6 +1,7 @@
 package com.guide.bloggroovy.service
 
-import com.guide.bloggroovy.repository.BoardRepository
+import com.guide.bloggroovy.domain.Member
+import com.guide.bloggroovy.repository.MemberRepository
 import lombok.RequiredArgsConstructor
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -10,7 +11,13 @@ import org.springframework.transaction.annotation.Transactional
 @RequiredArgsConstructor
 class MemberService {
 
-    private final BoardRepository boardRepository
+    private final MemberRepository memberRepository
 
+    @Transactional
+    Long join(Member member) {
+
+        memberRepository.save(member)
+        return member.getId()
+    }
 
 }

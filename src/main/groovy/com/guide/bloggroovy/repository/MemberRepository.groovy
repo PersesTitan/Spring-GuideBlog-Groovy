@@ -16,6 +16,7 @@ class MemberRepository {
         em.persist(member)
     }
 
+    //조회 로직
     Member findOne(Long id) {
         return em.find(Member.class, id)
     }
