@@ -8,16 +8,32 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional(readOnly = true)
-@RequiredArgsConstructor
 class MemberService {
 
     private final MemberRepository memberRepository
 
-    @Transactional
-    Long join(Member member) {
+    MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository
+    }
 
+    @Transactional
+    def join(Member member) {
+        validateDuplicateMember(member)
         memberRepository.save(member)
         return member.getId()
     }
 
+    //중복 체크
+    private def validateDuplicateMember(Member member) {
+        String loginId = member.getLoginId()
+        String nickname = member.getNickname()
+        List<Member> loginIdList = memberRepository.findByLoginId(loginId)
+        if (!loginIdList.isEmpty()) throw new IllegalStateException("존재하는 아이디 입니다.")
+        List<Member> nickName = memberRepository.findByNickName(nickname)
+        if (!nickName.isEmpty()) throw new IllegalStateException("존재하는 닉네임 입니다.")
+    }
+
+    def findOne(Long id) {
+        return memberRepository.findOne(id)
+    }
 }
