@@ -17,7 +17,7 @@ class MemberService {
     }
 
     @Transactional
-    def join(Member member) {
+    Long join(Member member) {
         validateDuplicateMember(member)
         memberRepository.save(member)
         return member.getId()
@@ -33,7 +33,11 @@ class MemberService {
         if (!nickName.isEmpty()) throw new IllegalStateException("존재하는 닉네임 입니다.")
     }
 
-    def findOne(Long id) {
+    Member findOne(Long id) {
         return memberRepository.findOne(id)
+    }
+
+    List<Member> findAll() {
+        return memberRepository.findAll()
     }
 }
