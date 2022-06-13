@@ -2,14 +2,18 @@ package com.guide.bloggroovy.service
 
 import com.guide.bloggroovy.repository.BoardRepository
 import lombok.RequiredArgsConstructor
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional(readOnly = true)
-@RequiredArgsConstructor
 class BoardService {
 
     private final BoardRepository boardRepository
 
+    @Autowired
+    BoardService(BoardRepository boardRepository) {
+        this.boardRepository = boardRepository
+    }
 }
