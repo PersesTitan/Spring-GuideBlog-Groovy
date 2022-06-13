@@ -24,9 +24,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.codehaus.groovy:groovy'
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	testCompileOnly 'org.projectlombok:lombok'
+	testCompileOnly 'junit:junit:4.13.2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
