@@ -7,10 +7,13 @@ import org.springframework.stereotype.Repository
 import javax.persistence.EntityManager
 
 @Repository
-@RequiredArgsConstructor
 class MemberRepository {
 
     private final EntityManager em;
+
+    MemberRepository(EntityManager em) {
+        this.em = em
+    }
 
     void save(Member member) {
         em.persist(member)
@@ -24,5 +27,18 @@ class MemberRepository {
     List<Member> findAll() {
         return em.createQuery("SELECT Member FROM Member", Member.class)
                 .getResultList()
+    }
+
+    //중복 체크
+    List<Member> findByLoginId(String loginId) {
+        return em.createQuery("SELECT M FROM Member AS M WHERE M.loginId = :loginId", Member.class)
+                .setParameter("loginId", loginId)
+                .getResultList();
+    }
+
+    List<Member> findByNickName(String nickName) {
+        return em.createQuery("SELECT M FROM Member AS M WHERE M.nickname = :nickName", Member.class)
+                .setParameter("nickName", nickName)
+                .getResultList();
     }
 }
