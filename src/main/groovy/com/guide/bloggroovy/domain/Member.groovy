@@ -1,6 +1,8 @@
 package com.guide.bloggroovy.domain
 
+import lombok.AccessLevel
 import lombok.Getter
+import lombok.NoArgsConstructor
 import lombok.NonNull
 import lombok.Setter
 
@@ -11,6 +13,7 @@ import javax.persistence.Id
 import java.time.LocalDateTime
 
 @Entity @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 class Member {
 
     @Id @GeneratedValue
@@ -26,7 +29,7 @@ class Member {
 
     @Setter private String email
 
-    Member(String nickname, String password, String loginId, String email) {
+    private Member(String nickname, String password, String loginId, String email) {
         this.nickname = nickname
         this.password = password
         this.loginId = loginId
@@ -34,5 +37,8 @@ class Member {
         this.createDate = LocalDateTime.now()
     }
 
-    protected Member() {}
+    //생성 메소드
+    static Member createMember(String nickname, String loginId, String password, String email) {
+        return new Member(nickname, password, loginId, email)
+    }
 }
