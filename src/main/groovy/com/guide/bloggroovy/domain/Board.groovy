@@ -1,6 +1,8 @@
 package com.guide.bloggroovy.domain
 
+import lombok.AccessLevel
 import lombok.Getter
+import lombok.NoArgsConstructor
 import lombok.NonNull
 import lombok.Setter
 
@@ -32,12 +34,17 @@ class Board {
 
     private LocalDateTime createDate
 
-    Board(String title, String content, Member member) {
-        this.title = title;
+    private Board(String title, String content, Member member) {
+        this.title = title
         this.content = content
         this.member = member
         this.createDate = LocalDateTime.now()
     }
 
     protected Board() {}
+
+    //생성 메소드
+    static createBoard(Member member, String title, String content) {
+        return new Board(title, content, member);
+    }
 }
