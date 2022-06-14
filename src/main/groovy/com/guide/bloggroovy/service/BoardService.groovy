@@ -1,5 +1,6 @@
 package com.guide.bloggroovy.service
 
+import com.guide.bloggroovy.domain.Board
 import com.guide.bloggroovy.repository.BoardRepository
 import lombok.RequiredArgsConstructor
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,4 +17,11 @@ class BoardService {
     BoardService(BoardRepository boardRepository) {
         this.boardRepository = boardRepository
     }
+
+    Long save(Board board) {
+        boardRepository.save(board);
+        return board.getId()
+    }
+
+
 }
